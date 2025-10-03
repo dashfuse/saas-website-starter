@@ -46,15 +46,41 @@ npm run format
 * `bg-destructive` / `text-destructive-foreground`
 * `bg-card` / `text-card-foreground`
 * `bg-popover` / `text-popover-foreground`
-* `border-border`,   `border-input`,   `focus:ring-ring`
-* `rounded-sm`,   `rounded-md`,  `rounded-lg` (based on `--radius`)
+* `border-border`,         `border-input`,         `focus:ring-ring`
+* `rounded-sm`,         `rounded-md`,  `rounded-lg` (based on `--radius`)
 
 **❌ NEVER USE:**
-* `bg-blue-500`,   `text-gray-600`,   `bg-slate-100`,   `text-zinc-800`
+* `bg-blue-500`,         `text-gray-600`,         `bg-slate-100`,         `text-zinc-800`
 * `dark:bg-gray-900`,  `dark:text-white` (tokens handle dark mode automatically)
 * Any hardcoded color class from Tailwind
 
 **WHY:** Using CSS variables enables users to change colors in real-time via the DesignPanel without regenerating code. One hardcoded color breaks this magic.
+
+### **MOTION ANIMATION RULES (CRITICAL - READ FIRST!)**
+
+**✅ ALWAYS USE:**
+* Motion components from `@/components/motion` for animations
+* Pre-configured animation variants (fadeIn, slideUp, scaleIn, etc.)
+* Scroll-triggered animations for better performance
+* `willChange` CSS property for performance optimization
+* Respect user's motion preferences (automatically handled by Motion)
+
+**❌ NEVER USE:**
+* CSS transitions for complex animations (use Motion instead)
+* Hardcoded animation durations (use DURATION constants)
+* Animations that don't respect `prefers-reduced-motion`
+* Heavy animations on every render (use scroll triggers)
+
+**WHY:** Motion provides hardware-accelerated animations, better performance, and automatic accessibility support. It also integrates seamlessly with our design system.
+
+**📚 MOTION RESOURCES FOR AI:**
+* [Motion Documentation](https://motion.dev/docs/react) - Complete API reference
+* [Motion Examples](https://motion.dev/examples) - Real-world animation examples
+* [Animation Best Practices](https://motion.dev/docs/guides/accessibility) - Accessibility guidelines
+* [Performance Guide](https://motion.dev/docs/guides/performance) - Performance optimization tips
+* [Motion Transitions](https://motion.dev/docs/react-transitions) - Page and layout transitions
+* [Motion Scroll](https://motion.dev/docs/react-use-scroll) - Scroll-triggered animations
+* [Motion Component](https://motion.dev/docs/react-motion-component) - Core animation component
 
 ### **Contrast Pairing Rules**
 
@@ -107,7 +133,7 @@ src/
 
 * Tailwind utility classes only
 * Use `cn()` helper from `lib/utils.ts` for conditional classes
-* Mobile-first responsive design (`sm:`,   `md:`,   `lg:`,   `xl:`,   `2xl:`)
+* Mobile-first responsive design (`sm:`,         `md:`,         `lg:`,         `xl:`,         `2xl:`)
 
 ### Imports
 
@@ -119,42 +145,38 @@ src/
 
 ## 🧩 Component Patterns
 
-### Hero Section
+### Basic Motion Patterns
+
+**Use Motion components for animations instead of CSS transitions:**
 
 ```tsx
-<section className="flex flex-col items-center space-y-4 text-center">
-  <h1 className="text-4xl font-bold text-foreground">
-    Your Value Proposition
-  </h1>
-  <p className="text-xl text-muted-foreground max-w-2xl">
-    Supporting copy that explains the benefit
-  </p>
-  <button className="bg-primary text-primary-foreground px-8 py-4 rounded-lg">
-    Get Started
-  </button>
-</section>
-```
+// ✅ Good - Use Motion components
+<MotionSection variant="slideUp" className="py-24">
+  <MotionText as="h1" variant="reveal" className="text-4xl font-bold">
+    Animated Heading
+  </MotionText>
+  <MotionButton variant="primary" size="lg">
+    Animated Button
+  </MotionButton>
+</MotionSection>
 
-### Feature Card
-
-```tsx
-<div className="bg-card text-card-foreground border border-border rounded-lg p-6 space-y-2">
-  <h3 className="text-xl font-semibold">Feature Title</h3>
-  <p className="text-muted-foreground">Feature description</p>
+// ❌ Avoid - CSS transitions for complex animations
+<div className="transition-all duration-300 hover:scale-105">
+  <h1>Static Heading</h1>
 </div>
 ```
 
-### Form Input
+**Available Motion Components:**
+* `MotionSection` - Scroll-triggered sections (variants: fade, slideUp, stagger)
+* `MotionCard` - Animated cards (variants: hover, scale, slide)
+* `MotionButton` - Interactive buttons (variants: primary, secondary, outline, ghost)
+* `MotionText` - Animated text (variants: reveal, fade, stagger)
 
-```tsx
-<div className="space-y-2">
-  <label className="text-sm font-medium text-foreground">Email</label>
-  <input 
-    type="email"
-    className="bg-background border-input focus:ring-ring w-full px-3 py-2 rounded-md"
-  />
-</div>
-```
+**For advanced animations, refer to:**
+* [Motion Documentation](https://motion.dev/docs/react) - Complete API reference
+* [Motion Examples](https://motion.dev/examples) - Real-world patterns
+* [Motion Transitions](https://motion.dev/docs/react-transitions) - Page transitions
+* [Motion Scroll](https://motion.dev/docs/react-use-scroll) - Scroll animations
 
 ---
 
@@ -184,15 +206,15 @@ npx shadcn@latest add [component-name] --yes --overwrite
 ### Available Components
 
 Check [shadcn/ui docs](https://ui.shadcn.com/docs/components) for full list. Common ones:
-* `button`,   `card`,   `input`,   `label`,   `form`
-* `dialog`,   `dropdown-menu`,   `popover`,   `sheet`
-* `accordion`,   `tabs`,   `toast`,   `tooltip`
+* `button`,         `card`,         `input`,         `label`,         `form`
+* `dialog`,         `dropdown-menu`,         `popover`,         `sheet`
+* `accordion`,         `tabs`,         `toast`,         `tooltip`
 
 ### NEVER Edit components/ui/
 
 These are generated files. If you need customization:
-1. Create a new component in `components/` that wraps the shadcn component
-2. Or reinstall with `npx shadcn@latest add [component] --overwrite`
+01. Create a new component in `components/` that wraps the shadcn component
+02. Or reinstall with `npx shadcn@latest add [component] --overwrite`
 
 ---
 
@@ -209,7 +231,7 @@ These are generated files. If you need customization:
 ## 📱 Responsive Design
 
 * Mobile-first approach
-* Breakpoints: `sm:640px`,   `md:768px`,   `lg:1024px`,   `xl:1280px`,   `2xl:1536px`
+* Breakpoints: `sm:640px`,         `md:768px`,         `lg:1024px`,         `xl:1280px`,         `2xl:1536px`
 * Touch targets: minimum 44x44px on mobile
 * Test across all breakpoints
 
@@ -219,7 +241,7 @@ These are generated files. If you need customization:
 
 ### Before Completing Any Task
 
-1. **Run Build:**
+01. **Run Build:**
    
 
 ```bash
@@ -228,7 +250,7 @@ These are generated files. If you need customization:
 
    Must pass with zero errors. If it fails, fix ALL errors and rebuild.
 
-2. **Run Linter:**
+02. **Run Linter:**
    
 
 ```bash
@@ -237,7 +259,7 @@ These are generated files. If you need customization:
 
    Fix any warnings or errors.
 
-3. **Visual Check:**
+03. **Visual Check:**
    - Open `http://localhost:3000` in browser
    - Test light/dark mode toggle
    - Verify no hardcoded colors (change theme to check)
@@ -250,9 +272,9 @@ These are generated files. If you need customization:
 ** `app/page.tsx` is the PRIMARY entry point.**
 
 After ANY UI work:
-1. Ensure `app/page.tsx` renders the main user-facing experience
-2. Include: Hero section, value proposition, prominent CTA
-3. Users should immediately understand what the product does
+01. Ensure `app/page.tsx` renders the main user-facing experience
+02. Include: Hero section, value proposition, prominent CTA
+03. Users should immediately understand what the product does
 
 ---
 
@@ -312,12 +334,16 @@ npx shadcn@latest add dialog --yes
 ## ✨ Success Criteria
 
 A task is complete when:
-1. ✅ `npm run build` passes with zero errors
-2. ✅ No hardcoded Tailwind colors used
-3. ✅ All `bg-{token}` paired with `text-{token}-foreground`
-4. ✅ Mobile-responsive (tested at all breakpoints)
-5. ✅ WCAG AA accessible (contrast, labels, keyboard nav)
-6. ✅ `app/page.tsx` renders compelling homepage
+01. ✅ `npm run build` passes with zero errors
+02. ✅ No hardcoded Tailwind colors used
+03. ✅ All `bg-{token}` paired with `text-{token}-foreground`
+04. ✅ Mobile-responsive (tested at all breakpoints)
+05. ✅ WCAG AA accessible (contrast, labels, keyboard nav)
+06. ✅ `app/page.tsx` renders compelling homepage
+07. ✅ Motion animations are smooth and purposeful
+08. ✅ Animations respect user's motion preferences
+09. ✅ Scroll-triggered animations for better performance
+10. ✅ Motion components used instead of CSS transitions for complex animations
 
 ---
 

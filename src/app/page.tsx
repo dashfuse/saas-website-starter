@@ -9,65 +9,164 @@
  * - NEVER use hardcoded colors (bg-blue-500, text-gray-600, etc.)
  * - Always pair bg-{token} with text-{token}-foreground for proper contrast
  *
+ * MOTION RULES:
+ * - Use Motion components for smooth animations
+ * - Respect user's motion preferences (respects prefers-reduced-motion)
+ * - Keep animations subtle and purposeful
+ * - Use scroll-triggered animations for better performance
+ *
  * Example Hero Pattern:
  * ```tsx
- * <section className="flex flex-col items-center space-y-6 text-center py-24">
- *   <h1 className="text-5xl font-bold text-foreground">
+ * <MotionSection variant="slideUp" className="py-24">
+ *   <MotionText as="h1" variant="reveal" className="text-5xl font-bold text-foreground">
  *     Your Product Name
- *   </h1>
- *   <p className="text-xl text-muted-foreground max-w-2xl">
+ *   </MotionText>
+ *   <MotionText as="p" variant="fade" className="text-xl text-muted-foreground max-w-2xl">
  *     Clear value proposition in one sentence
- *   </p>
- *   <button className="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-medium">
+ *   </MotionText>
+ *   <MotionButton variant="primary" size="lg">
  *     Get Started
- *   </button>
- * </section>
+ *   </MotionButton>
+ * </MotionSection>
  * ```
  */
 
+import { 
+  MotionSection, 
+  MotionCard, 
+  MotionButton, 
+  MotionText
+} from "@/components/motion";
+
 const Page = () => {
     return (
-        <main className='flex min-h-screen flex-col items-center justify-center p-8'>
-            {/* Hero Section - Replace with your content */}
-            <section className='flex flex-col items-center space-y-6 text-center'>
-                <h1 className='text-foreground text-5xl font-bold'>Welcome to Your Project</h1>
+        <main className='min-h-screen'>
+            {/* Hero Section with Motion */}
+            <MotionSection variant="slideUp" className="flex min-h-screen flex-col items-center justify-center p-8">
+                <MotionText 
+                  as="h1" 
+                  variant="reveal" 
+                  className="text-foreground text-5xl font-bold mb-6"
+                  delay={0.2}
+                >
+                  Welcome to Your Project
+                </MotionText>
 
-                <p className='text-muted-foreground max-w-2xl text-xl'>
-                    Build something amazing with Next.js 15, React 19, and shadcn/ui. This starter is ready for instant
-                    theme customization.
-                </p>
+                <MotionText 
+                  as="p" 
+                  variant="fade" 
+                  className="text-muted-foreground max-w-2xl text-xl mb-8"
+                  delay={0.4}
+                >
+                  Build something amazing with Next.js 15, React 19, shadcn/ui, and Motion animations. 
+                  This starter is ready for instant theme customization and smooth animations.
+                </MotionText>
 
                 <div className='flex gap-4'>
-                    <button className='bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg px-6 py-3 font-medium transition-colors'>
-                        Get Started
-                    </button>
-                    <button className='bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-lg px-6 py-3 font-medium transition-colors'>
-                        Learn More
-                    </button>
+                  <MotionButton 
+                    variant="primary" 
+                    size="lg"
+                    delay={0.6}
+                  >
+                    Get Started
+                  </MotionButton>
+                  <MotionButton 
+                    variant="secondary" 
+                    size="lg"
+                    delay={0.8}
+                  >
+                    Learn More
+                  </MotionButton>
                 </div>
-            </section>
+            </MotionSection>
 
-            {/* Feature Cards - Example pattern */}
-            <section className='mt-24 grid max-w-6xl gap-8 md:grid-cols-3'>
-                <div className='bg-card text-card-foreground border-border space-y-2 rounded-lg border p-6'>
-                    <h3 className='text-xl font-semibold'>Fast & Modern</h3>
-                    <p className='text-muted-foreground'>Built with Next.js 15 and React 19 for optimal performance.</p>
-                </div>
-
-                <div className='bg-card text-card-foreground border-border space-y-2 rounded-lg border p-6'>
-                    <h3 className='text-xl font-semibold'>Beautiful UI</h3>
+            {/* Feature Cards with Stagger Animation */}
+            <MotionSection variant="stagger" className="py-24 px-8">
+              <div className="max-w-6xl mx-auto">
+                <MotionText 
+                  as="h2" 
+                  variant="reveal" 
+                  className="text-3xl font-bold text-foreground text-center mb-12"
+                >
+                  Why Choose This Starter?
+                </MotionText>
+                
+                <div className="grid gap-8 md:grid-cols-3">
+                  <MotionCard variant="hover" delay={0.1} className="p-6">
+                    <h3 className='text-xl font-semibold mb-2'>Fast & Modern</h3>
                     <p className='text-muted-foreground'>
-                        Powered by shadcn/ui components with instant theme switching.
+                      Built with Next.js 15 and React 19 for optimal performance and developer experience.
                     </p>
-                </div>
+                  </MotionCard>
 
-                <div className='bg-card text-card-foreground border-border space-y-2 rounded-lg border p-6'>
-                    <h3 className='text-xl font-semibold'>Type-Safe</h3>
+                  <MotionCard variant="hover" delay={0.2} className="p-6">
+                    <h3 className='text-xl font-semibold mb-2'>Beautiful UI</h3>
                     <p className='text-muted-foreground'>
-                        Fully typed with TypeScript 5 for better developer experience.
+                      Powered by shadcn/ui components with instant theme switching and smooth animations.
                     </p>
+                  </MotionCard>
+
+                  <MotionCard variant="hover" delay={0.3} className="p-6">
+                    <h3 className='text-xl font-semibold mb-2'>Motion Ready</h3>
+                    <p className='text-muted-foreground'>
+                      Pre-configured Motion library with scroll animations, parallax effects, and smooth transitions.
+                    </p>
+                  </MotionCard>
                 </div>
-            </section>
+              </div>
+            </MotionSection>
+
+            {/* Additional Features Section */}
+            <MotionSection variant="slideUp" className="py-24 px-8 bg-muted/30">
+              <div className="max-w-4xl mx-auto text-center">
+                <MotionText 
+                  as="h2" 
+                  variant="reveal" 
+                  className="text-3xl font-bold text-foreground mb-8"
+                >
+                  Built for Performance
+                </MotionText>
+                
+                <MotionText 
+                  as="p" 
+                  variant="fade" 
+                  className="text-muted-foreground max-w-2xl mx-auto"
+                  delay={0.2}
+                >
+                  All animations are optimized for performance and respect user preferences. 
+                  The Motion library provides smooth, hardware-accelerated animations.
+                </MotionText>
+              </div>
+            </MotionSection>
+
+            {/* Call to Action Section */}
+            <MotionSection variant="slideUp" className="py-24 px-8 text-center">
+              <MotionText 
+                as="h2" 
+                variant="reveal" 
+                className="text-3xl font-bold text-foreground mb-4"
+              >
+                Ready to Build Something Amazing?
+              </MotionText>
+              
+              <MotionText 
+                as="p" 
+                variant="fade" 
+                className="text-muted-foreground max-w-2xl mx-auto mb-8"
+                delay={0.2}
+              >
+                Start building your next project with this powerful starter template. 
+                Everything is pre-configured and ready to go.
+              </MotionText>
+
+              <MotionButton 
+                variant="primary" 
+                size="lg"
+                delay={0.4}
+              >
+                Start Building Now
+              </MotionButton>
+            </MotionSection>
         </main>
     );
 };
