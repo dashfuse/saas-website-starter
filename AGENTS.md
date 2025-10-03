@@ -46,11 +46,11 @@ npm run format
 * `bg-destructive` / `text-destructive-foreground`
 * `bg-card` / `text-card-foreground`
 * `bg-popover` / `text-popover-foreground`
-* `border-border`,         `border-input`,         `focus:ring-ring`
-* `rounded-sm`,         `rounded-md`,  `rounded-lg` (based on `--radius`)
+* `border-border`,           `border-input`,           `focus:ring-ring`
+* `rounded-sm`,           `rounded-md`,  `rounded-lg` (based on `--radius`)
 
 **❌ NEVER USE:**
-* `bg-blue-500`,         `text-gray-600`,         `bg-slate-100`,         `text-zinc-800`
+* `bg-blue-500`,           `text-gray-600`,           `bg-slate-100`,           `text-zinc-800`
 * `dark:bg-gray-900`,  `dark:text-white` (tokens handle dark mode automatically)
 * Any hardcoded color class from Tailwind
 
@@ -133,7 +133,7 @@ src/
 
 * Tailwind utility classes only
 * Use `cn()` helper from `lib/utils.ts` for conditional classes
-* Mobile-first responsive design (`sm:`,         `md:`,         `lg:`,         `xl:`,         `2xl:`)
+* Mobile-first responsive design (`sm:`,           `md:`,           `lg:`,           `xl:`,           `2xl:`)
 
 ### Imports
 
@@ -206,9 +206,9 @@ npx shadcn@latest add [component-name] --yes --overwrite
 ### Available Components
 
 Check [shadcn/ui docs](https://ui.shadcn.com/docs/components) for full list. Common ones:
-* `button`,         `card`,         `input`,         `label`,         `form`
-* `dialog`,         `dropdown-menu`,         `popover`,         `sheet`
-* `accordion`,         `tabs`,         `toast`,         `tooltip`
+* `button`,           `card`,           `input`,           `label`,           `form`
+* `dialog`,           `dropdown-menu`,           `popover`,           `sheet`
+* `accordion`,           `tabs`,           `toast`,           `tooltip`
 
 ### NEVER Edit components/ui/
 
@@ -228,10 +228,75 @@ These are generated files. If you need customization:
 
 ---
 
+## 🎯 Element ID Requirements (CRITICAL FOR BUILDER INTERFACE)
+
+### **MANDATORY: Unique IDs for All Interactive Elements**
+
+**✅ ALWAYS ASSIGN UNIQUE IDs TO:**
+* **Buttons**: `id="hero-cta-button"`,   `id="pricing-upgrade-btn"`
+* **Forms & Inputs**: `id="contact-form-email"`,   `id="newsletter-signup-input"`
+* **Images**: `id="hero-image-1"`,   `id="feature-screenshot-2"`
+* **Links**: `id="nav-home-link"`,   `id="footer-privacy-link"`
+* **Cards/Sections**: `id="pricing-card-basic"`,   `id="testimonial-1"`
+* **Navigation**: `id="mobile-menu-toggle"`,   `id="nav-about-link"`
+* **Any selectable element** that users might interact with
+
+### **ID Naming Convention**
+
+```tsx
+// ✅ GOOD: Descriptive, kebab-case, unique
+<button id="hero-cta-button">Get Started</button>
+<input id="contact-form-email" type="email" />
+<img id="feature-image-1" src="..." alt="..." />
+<div id="pricing-card-premium">...</div>
+
+// ❌ BAD: Generic, unclear, or missing
+<button>Get Started</button>
+<input type="email" />
+<img src="..." alt="..." />
+<div>...</div>
+```
+
+### **Why This Matters**
+
+* **Builder Interface**: Enables precise element selection and targeting
+* **Live Updates**: Allows real-time modifications (image updates, text changes)
+* **Flow Triggers**: Enables button clicks to trigger specific actions
+* **Element Tracking**: Helps track which elements are being modified
+* **Page Context**: Combined with page path, provides exact element location
+
+### **Examples for Common Elements**
+
+```tsx
+// Hero Section
+<section id="hero-section">
+  <h1 id="hero-title">Your Amazing Product</h1>
+  <p id="hero-description">Transform your workflow today</p>
+  <img id="hero-image" src="..." alt="..." />
+  <button id="hero-cta-button">Start Free Trial</button>
+</section>
+
+// Pricing Cards
+<div id="pricing-card-basic">
+  <h3 id="pricing-basic-title">Basic Plan</h3>
+  <button id="pricing-basic-cta">Choose Basic</button>
+</div>
+
+// Contact Form
+<form id="contact-form">
+  <input id="contact-form-name" type="text" />
+  <input id="contact-form-email" type="email" />
+  <textarea id="contact-form-message"></textarea>
+  <button id="contact-form-submit">Send Message</button>
+</form>
+```
+
+---
+
 ## 📱 Responsive Design
 
 * Mobile-first approach
-* Breakpoints: `sm:640px`,         `md:768px`,         `lg:1024px`,         `xl:1280px`,         `2xl:1536px`
+* Breakpoints: `sm:640px`,           `md:768px`,           `lg:1024px`,           `xl:1280px`,           `2xl:1536px`
 * Touch targets: minimum 44x44px on mobile
 * Test across all breakpoints
 

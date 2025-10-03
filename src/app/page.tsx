@@ -116,8 +116,127 @@ const Page = () => {
               </div>
             </MotionSection>
 
-            {/* Additional Features Section */}
+            {/* Test Images Section for Image Selection */}
             <MotionSection variant="slideUp" className="py-24 px-8 bg-muted/30">
+              <div className="max-w-6xl mx-auto">
+                <MotionText 
+                  as="h2" 
+                  variant="reveal" 
+                  className="text-3xl font-bold text-foreground text-center mb-8"
+                >
+                  Test Image Selection
+                </MotionText>
+                
+                <MotionText 
+                  as="p" 
+                  variant="fade" 
+                  className="text-muted-foreground max-w-2xl mx-auto text-center mb-12"
+                  delay={0.2}
+                >
+                  Click on any image below to test the live image update functionality. 
+                  These images can be replaced in real-time!
+                </MotionText>
+
+                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                  {/* Test Image 1 */}
+                  <MotionCard variant="hover" delay={0.1} className="p-6 text-center">
+                    <img 
+                      id="hero-image-1"
+                      src="https://picsum.photos/400/300?random=1" 
+                      alt="Test image 1 - Nature scene"
+                      className="w-full h-48 object-cover rounded-lg mb-4"
+                    />
+                    <h3 className="text-lg font-semibold mb-2">Nature Scene</h3>
+                    <p className="text-muted-foreground text-sm">
+                      Click this image to test live updates
+                    </p>
+                  </MotionCard>
+
+                  {/* Test Image 2 */}
+                  <MotionCard variant="hover" delay={0.2} className="p-6 text-center">
+                    <img 
+                      id="hero-image-2"
+                      src="https://picsum.photos/400/300?random=2" 
+                      alt="Test image 2 - City landscape"
+                      className="w-full h-48 object-cover rounded-lg mb-4"
+                    />
+                    <h3 className="text-lg font-semibold mb-2">City Landscape</h3>
+                    <p className="text-muted-foreground text-sm">
+                      Try updating with a different URL
+                    </p>
+                  </MotionCard>
+
+                  {/* Test Image 3 */}
+                  <MotionCard variant="hover" delay={0.3} className="p-6 text-center">
+                    <img 
+                      id="hero-image-3"
+                      src="https://picsum.photos/400/300?random=3" 
+                      alt="Test image 3 - Abstract art"
+                      className="w-full h-48 object-cover rounded-lg mb-4"
+                    />
+                    <h3 className="text-lg font-semibold mb-2">Abstract Art</h3>
+                    <p className="text-muted-foreground text-sm">
+                      Perfect for testing image generation
+                    </p>
+                  </MotionCard>
+
+                  {/* Background Image Test */}
+                  <MotionCard 
+                    variant="hover" 
+                    delay={0.4} 
+                    className="p-6 text-center relative overflow-hidden"
+                    style={{
+                      backgroundImage: "url('https://picsum.photos/400/300?random=4')",
+                      backgroundSize: "cover",
+                      backgroundPosition: "center"
+                    }}
+                  >
+                    <div className="relative z-10 bg-black/50 text-white p-4 rounded-lg">
+                      <h3 className="text-lg font-semibold mb-2">Background Image</h3>
+                      <p className="text-sm opacity-90">
+                        This div has a background image - click to test background updates
+                      </p>
+                    </div>
+                  </MotionCard>
+
+                  {/* Picture Element Test */}
+                  <MotionCard variant="hover" delay={0.5} className="p-6 text-center">
+                    <picture id="picture-test">
+                      <img 
+                        src="https://picsum.photos/400/300?random=5" 
+                        alt="Test picture element"
+                        className="w-full h-48 object-cover rounded-lg mb-4"
+                      />
+                    </picture>
+                    <h3 className="text-lg font-semibold mb-2">Picture Element</h3>
+                    <p className="text-muted-foreground text-sm">
+                      Tests picture tag selection
+                    </p>
+                  </MotionCard>
+
+                  {/* Figure Element Test */}
+                  <MotionCard variant="hover" delay={0.6} className="p-6 text-center">
+                    <figure id="figure-test">
+                      <img 
+                        src="https://picsum.photos/400/300?random=6" 
+                        alt="Test figure element"
+                        className="w-full h-48 object-cover rounded-lg mb-4"
+                      />
+                      <figcaption className="text-sm text-muted-foreground">
+                        Figure caption for testing
+                      </figcaption>
+                    </figure>
+                    <h3 className="text-lg font-semibold mb-2">Figure Element</h3>
+                    <p className="text-muted-foreground text-sm">
+                      Tests figure tag selection
+                    </p>
+                  </MotionCard>
+                </div>
+              </div>
+            </MotionSection>
+
+            {/* Additional Features Section */}
+            <MotionSection variant="slideUp" className="py-24 px-8">
               <div className="max-w-4xl mx-auto text-center">
                 <MotionText 
                   as="h2" 
